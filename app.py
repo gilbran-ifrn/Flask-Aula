@@ -1,20 +1,37 @@
 from flask import Flask
+from flask import render_template
+from flask import request
 
 app = Flask(__name__)
 
 @app.route('/')
 def inicial():
-    return '<h1>Olá, Mundo!</h1>'
+    return render_template('inicial.html', mensagem='Olá, Mundo!')
+
+idiomas = {
+    'portugues': 'Olá, Mundo!',
+    'ingles': 'Hello, World!',
+    'frances' : 'Salut, Monde!'
+}
 
 @app.route('/<idioma>')
 def olaMundo(idioma):
-    if idioma == 'portugues':
-        mensagem = 'Olá, Mundo!'
-    elif idioma == 'ingles':
-        mensagem = 'Hello, World!'
-    elif idioma == 'frances':
-        mensagem = 'Salut, Monde!'
-    else:
-        mensagem = 'Não tenho conhecimento!'
+    try:
+        return render_template('inicial.html', mensagem=idiomas[idioma], idiomaHTML=idioma)
+    except:
+        return render_template('inicial.html', mensagem='Não tenho conhecimento!', idiomaHTML=idioma)
+    
+@app.route('/admin')
+def admin():
+    return render_template('admin.html')
 
-    return f'<h1>{mensagem}</h1>'
+@app.route('/enviar', methods=['POST'])
+def enviar():
+    i = request.form['idi']
+    m = request.form['mens']
+
+    idiomas[i] = m
+
+    return render_template('resposta.html', idio=idiomas)
+
+    
