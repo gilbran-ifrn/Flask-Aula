@@ -4,14 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="static/css/bootstrap.min.css">
 </head>
 <body>
-
-    {% if idiomaHTML == 'portugues' %}
-        <h1 style="color:green;"> {{ mensagem }} </h1>
+    
+    {% if todoDicionario | length == 0 %}
+        <h1>Não há idiomas!</h1>
     {% else %}
-        <h1>{{ mensagem }}</h1>
+        <div class="row">
+        {% for chave in todoDicionario %}   
+            <div class="card" style="width:18rem; margin:5px;">
+                <img src="static/img/{{ chave }}.png" class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title">{{ chave | capitalize }}</h5>
+                    <p class="card-text">{{ todoDicionario[chave] }}</p>
+                    <a href="/{{ chave }}" class="btn btn-primary" style="float:right;">Abrir Página</a>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
     {% endif %}
+    
 
 </body>
 </html>

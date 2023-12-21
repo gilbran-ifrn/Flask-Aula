@@ -4,22 +4,22 @@ from flask import request
 
 app = Flask(__name__)
 
-@app.route('/')
-def inicial():
-    return render_template('inicial.html', mensagem='Olá, Mundo!')
-
 idiomas = {
     'portugues': 'Olá, Mundo!',
     'ingles': 'Hello, World!',
     'frances' : 'Salut, Monde!'
 }
 
+@app.route('/')
+def inicial():
+    return render_template('inicial.html', todoDicionario=idiomas)
+
 @app.route('/<idioma>')
 def olaMundo(idioma):
     try:
-        return render_template('inicial.html', mensagem=idiomas[idioma], idiomaHTML=idioma)
+        return render_template('mensagens.html', mensagem=idiomas[idioma])
     except:
-        return render_template('inicial.html', mensagem='Não tenho conhecimento!', idiomaHTML=idioma)
+        return render_template('mensagens.html', mensagem='Não tenho conhecimento!')
     
 @app.route('/admin')
 def admin():
