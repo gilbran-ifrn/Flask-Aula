@@ -12,13 +12,13 @@
         <h1>Não há idiomas!</h1>
     {% else %}
         <div class="row">
-        {% for chave in todoDicionario %}   
+        {% for linha in todoDicionario %}   
             <div class="card" style="width:18rem; margin:5px;">
-                <img src="static/img/{{ chave }}.png" class="card-img-top">
+                <img src="static/img/{{ linha['idioma'] }}.png" class="card-img-top">
                 <div class="card-body">
-                    <h5 class="card-title">{{ chave | capitalize }}</h5>
-                    <p class="card-text">{{ todoDicionario[chave] }}</p>
-                    <a href="/{{ chave }}" class="btn btn-primary" style="float:right;">Abrir Página</a>
+                    <h5 class="card-title">{{ linha['idioma'] | capitalize }}</h5>
+                    <p class="card-text">{{ linha['mensagem'] }}</p>
+                    <a href="/{{ linha['idioma'] }}" class="btn btn-primary" style="float:right;">Abrir Página</a>
                 </div>
             </div>
         {% endfor %}

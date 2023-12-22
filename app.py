@@ -2,25 +2,53 @@ from flask import Flask
 from flask import render_template
 from flask import request
 
+import mysql.connector
+
 app = Flask(__name__)
 
-idiomas = {
-    'portugues': 'Olá, Mundo!',
-    'ingles': 'Hello, World!',
-    'frances' : 'Salut, Monde!'
-}
+def conexaoBD():
+    cnx = mysql.connector.connect(user='root',
+                                password='senhabd',
+                                host='127.0.0.1',
+                                database='babel')
+    return cnx
 
 @app.route('/')
 def inicial():
-    return render_template('inicial.html', todoDicionario=idiomas)
+    conexao = conexaoBD()
+    cursor = conexao.cursor(dictionary=True)
+
+    sql = ("SELECT idioma, mensagem FROM texto")
+
+    cursor.execute(sql)
+
+    mens = cursor.fetchall()
+
+    return render_template('inicial.html', todoDicionario=mens)
 
 @app.route('/<idioma>')
 def olaMundo(idioma):
-    try:
-        return render_template('mensagens.html', mensagem=idiomas[idioma])
-    except:
-        return render_template('mensagens.html', mensagem='Não tenho conhecimento!')
+    conexao = conexaoBD()
+    cursor = conexao.cursor(dictionary=True)
+
+    sql = ("SELECT mensagem FROM texto "
+           "WHERE idioma = %s")
     
+    tupla = (idioma,)
+
+    cursor.execute(sql, tupla)
+
+    mens = cursor.fetchone()
+
+    if (cursor.rowcount > 0):
+        cursor.close()
+        conexao.close()
+        return render_template('mensagens.html', mensagem=mens['mensagem'])
+    else:
+        cursor.close()
+        conexao.close()
+        return render_template('mensagens.html', mensagem='Não tenho conhecimento')
+        
 @app.route('/admin')
 def admin():
     return render_template('admin.html')
@@ -30,8 +58,21 @@ def enviar():
     i = request.form['idi']
     m = request.form['mens']
 
-    idiomas[i] = m
+    conexao = conexaoBD()
+    cursor = conexao.cursor()
 
-    return render_template('resposta.html', idio=idiomas)
+    sql = ("INSERT INTO texto "
+           "(idioma, mensagem) "
+           "VALUES (%s, %s)")
+
+    tupla = (i, m)
+
+    cursor.execute(sql, tupla)
+    conexao.commit()
+
+    cursor.close()
+    conexao.close()
+
+    return render_template('resposta.html')
 
     

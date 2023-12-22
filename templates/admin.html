@@ -4,18 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="static/css/bootstrap.min.css">
 </head>
 <body>
-    
-    <form action="enviar" method="post">
-        <label for="idi">Idioma</label>
-        <input type="text" name="idi" id="idi">
+    <div class="row" style="margin: 20px;">
+        <div style="width: 24rem;">
+            <form action="enviar" method="post">
+                <div class="mb-3">
+                    <label for="idi" class="form-label">Idioma</label>
+                    <input type="text" name="idi" id="idi" class="form-control">
+                </div>
 
-        <label for="mens">Mensagem</label>
-        <input type="text" name="mens" id="mens">
+                <div class="mb-3">
+                    <label for="mens" class="form-label">Mensagem</label>
+                    <input type="text" name="mens" id="mens" class="form-control">
+                </div>
 
-        <input type="submit" value="Cadastrar">
-    </form>
+                <div class="mb-3">
+                    <input type="submit" value="Cadastrar" class="btn btn-primary" style="width:22rem;">
+                </div>
+            </form>
 
 </body>
 </html>
