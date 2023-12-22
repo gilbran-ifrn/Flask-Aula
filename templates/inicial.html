@@ -14,7 +14,7 @@
         <div class="row">
         {% for linha in todoDicionario %}   
             <div class="card" style="width:18rem; margin:5px;">
-                <img src="static/img/{{ linha['idioma'] }}.png" class="card-img-top">
+                <img src="{{ linha['imagem'] }}" class="card-img-top">
                 <div class="card-body">
                     <h5 class="card-title">{{ linha['idioma'] | capitalize }}</h5>
                     <p class="card-text">{{ linha['mensagem'] }}</p>

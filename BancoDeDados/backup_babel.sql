@@ -29,7 +29,7 @@ CREATE TABLE `texto` (
   `imagem` varchar(256) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `idioma_UNIQUE` (`idioma`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +38,7 @@ CREATE TABLE `texto` (
 
 LOCK TABLES `texto` WRITE;
 /*!40000 ALTER TABLE `texto` DISABLE KEYS */;
-INSERT INTO `texto` VALUES (1,'portugues','Olá, Mundo!',NULL),(2,'frances','Salut, Monde!',NULL),(3,'ingles','Hello, World!',NULL);
+INSERT INTO `texto` VALUES (4,'italiano','Ciao mondo!','static/img/italiano.png'),(5,'portugues','Olá, Mundo!','static/img/portugues.webp'),(6,'holandes','Hallo Wereld!','static/img/holandes.webp');
 /*!40000 ALTER TABLE `texto` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-22 12:21:52
+-- Dump completed on 2023-12-22 17:01:10
